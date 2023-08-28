@@ -1,8 +1,7 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 const SearchBox = ({ setState }) => {
   const [getState, setGetState] = useState("");
-  const inputRef = useRef();
 
   const handleOnChange = (e) => {
     setGetState(e.target.value);
@@ -11,17 +10,11 @@ const SearchBox = ({ setState }) => {
   const handleOnClick = () => {
     setState(getState);
     setGetState("");
-    // inputRef.current.value = "";
   };
 
   return (
     <div>
-      <input
-        type="text"
-        value={getState}
-        onChange={handleOnChange}
-        // ref={inputRef}
-      ></input>
+      <input type="text" value={getState} onChange={handleOnChange}></input>
       <button onClick={handleOnClick}>Search</button>
     </div>
   );
