@@ -1,44 +1,54 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import moment from "moment/moment";
 
-const ShowWeather = ({ state, weatherData, setWeatherData }) => {
+const ShowWeather = ({ state, weatherData, setWeatherData, setState }) => {
   const apiKey = import.meta.env.VITE_API_KEY;
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${state}&appid=${apiKey}`;
 
-  const [loading, setLoading] = useState(true);
-
-  // console.log(state);
-
   useEffect(() => {
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        setWeatherData(data);
-        setLoading(false);
-      });
+    {
+      fetch(apiUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          setWeatherData(data);
+          // setLoading(false);
+        });
+    }
   }, [apiUrl]);
 
+  console.log(weatherData);
   console.log(weatherData);
 
   const kelvinToCelcuis = (kelvin) => {
     return (kelvin - 273.1).toFixed(1);
   };
 
-  if (loading) {
-    return <h1>Loading.....</h1>;
+  // if (state == "") {
+  //   return <h3>Please type your location in search box to see the weather</h3>;
+  // }
+
+  if (weatherData.cod === "404") {
+    return <h1>city not found</h1>;
+  } else if (weatherData.main === undefined) {
+    return <h1>Loading...</h1>;
   }
 
   return (
     <div>
       {weatherData && (
-        <>
-          <h1>{weatherData.name}</h1>
+        <div>
+          <h1>
+            {weatherData.name}, {weatherData.sys.country}
+          </h1>
           <h2>
             Temprature:
-            {weatherData.main ? kelvinToCelcuis(weatherData.main.temp) : null} C
+            {kelvinToCelcuis(weatherData.main.temp)}&deg;C
           </h2>
-          <h2></h2>
-        </>
+          <h2>Description: {weatherData.weather[0].main} </h2>
+          <h2>Date: {moment().format("LL")} </h2>
+          <h2>Humidity: {weatherData.main.humidity}% </h2>
+        </div>
       )}
     </div>
   );

@@ -8,15 +8,15 @@ function App() {
   const [weatherData, setWeatherData] = useState({});
 
   return (
-    <>
-      <h1> Hello World</h1>
+    <div>
       <SearchBox setState={setState} />
       <ShowWeather
         state={state}
+        setState={setState}
         weatherData={weatherData}
         setWeatherData={setWeatherData}
       />
-    </>
+    </div>
   );
 }
 
