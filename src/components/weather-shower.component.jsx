@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import moment from "moment/moment";
 
-const ShowWeather = ({ state, weatherData, setWeatherData, setState }) => {
+const ShowWeather = ({
+  state,
+  weatherData,
+  setWeatherData,
+  setState,
+  kelvinToCelsius,
+}) => {
   const apiKey = import.meta.env.VITE_API_KEY;
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${state}&appid=${apiKey}`;
 
@@ -18,15 +24,6 @@ const ShowWeather = ({ state, weatherData, setWeatherData, setState }) => {
   }, [apiUrl]);
 
   console.log(weatherData);
-  console.log(weatherData);
-
-  const kelvinToCelcuis = (kelvin) => {
-    return (kelvin - 273.1).toFixed(1);
-  };
-
-  // if (state == "") {
-  //   return <h3>Please type your location in search box to see the weather</h3>;
-  // }
 
   if (weatherData.cod === "404") {
     return <h1>city not found</h1>;
@@ -43,7 +40,7 @@ const ShowWeather = ({ state, weatherData, setWeatherData, setState }) => {
           </h1>
           <h2>
             Temprature:
-            {kelvinToCelcuis(weatherData.main.temp)}&deg;C
+            {kelvinToCelsius(weatherData.main.temp)}&deg;C
           </h2>
           <h2>Description: {weatherData.weather[0].main} </h2>
           <h2>Date: {moment().format("LL")} </h2>
