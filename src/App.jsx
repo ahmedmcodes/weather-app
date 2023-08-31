@@ -22,7 +22,7 @@ function App() {
         setWeatherData={setWeatherData}
         kelvinToCelsius={kelvinToCelsius}
       />
-      <WeatherForecast state={state} />
+      <WeatherForecast state={state} kelvinToCelsius={kelvinToCelsius} />
     </div>
   );
 }

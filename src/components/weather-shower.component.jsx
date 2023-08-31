@@ -30,7 +30,6 @@ const ShowWeather = ({
   } else if (weatherData.main === undefined) {
     return <h1>Loading...</h1>;
   }
-
   return (
     <div>
       {weatherData && (
