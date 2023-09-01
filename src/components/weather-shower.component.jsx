@@ -8,19 +8,35 @@ const ShowWeather = ({
   setWeatherData,
   setState,
   kelvinToCelsius,
+  lat,
+  setLat,
+  lon,
+  setLon,
 }) => {
   const apiKey = import.meta.env.VITE_API_KEY;
-  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${state}&appid=${apiKey}`;
+  let apiUrl;
+  if (state === "") {
+    apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+  } else {
+    apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${state}&appid=${apiKey}`;
+  }
 
   useEffect(() => {
-    {
-      fetch(apiUrl)
-        .then((response) => response.json())
-        .then((data) => {
-          setWeatherData(data);
-          // setLoading(false);
-        });
-    }
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLon(position.coords.longitude);
+        setLat(position.coords.latitude);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        setWeatherData(data);
+        // setLoading(false);
+      });
   }, [apiUrl]);
 
   console.log(weatherData);

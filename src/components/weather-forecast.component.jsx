@@ -1,14 +1,27 @@
 import { useEffect, useState } from "react";
 
-const WeatherForecast = ({ state, kelvinToCelsius }) => {
+const WeatherForecast = ({
+  state,
+  kelvinToCelsius,
+  lat,
+  setLat,
+  lon,
+  setLon,
+  weatherData,
+}) => {
   const [forecast, setForecast] = useState([]);
   const apiKey = import.meta.env.VITE_API_KEY;
+  let apiUrl;
+  if (state === "") {
+    apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+  } else {
+    apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${state}&appid=${apiKey}`;
+  }
+  console.log(apiUrl);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const request = await fetch(
-          `https://api.openweathermap.org/data/2.5/forecast?q=${state}&appid=${apiKey}`
-        );
+        const request = await fetch(apiUrl);
         const data = await request.json();
         setForecast(data.list);
       } catch (error) {
@@ -18,6 +31,7 @@ const WeatherForecast = ({ state, kelvinToCelsius }) => {
 
     fetchData();
   }, []);
+  console.log(forecast);
 
   const filteredForecast = forecast.filter((item) => {
     return item.dt_txt.includes("15:00:00");
@@ -51,7 +65,7 @@ const WeatherForecast = ({ state, kelvinToCelsius }) => {
 
   return (
     <div>
-      <h1>Weather Forecast for {state}</h1>
+      <h1>Weather Forecast for {weatherData.name} </h1>
       {forecast[0] && (
         <>
           {filteredForecast.map((item, index) => {
