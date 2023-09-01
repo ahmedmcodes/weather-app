@@ -18,8 +18,8 @@ function App() {
 
   return (
     <div>
-      {/*
       <SearchBox setState={setState} />
+      {/*
       <ShowWeather
         state={state}
         setState={setState}
