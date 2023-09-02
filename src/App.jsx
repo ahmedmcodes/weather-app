@@ -4,7 +4,6 @@ import ShowWeather from "./components/weather-shower.component";
 import SearchBox from "./components/search-box.component";
 import WeatherForecast from "./components/weather-forecast.component";
 import LocationFetcher from "./components/lon-lat.component";
-import ShowCity from "./components/cities.component";
 
 function App() {
   const [state, setState] = useState("");
@@ -39,7 +38,6 @@ function App() {
         lon={lon}
         weatherData={weatherData}
       />
-      <ShowCity />
     </div>
   );
 }

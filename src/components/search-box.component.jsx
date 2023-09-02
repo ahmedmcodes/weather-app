@@ -8,12 +8,15 @@ const SearchBox = ({ state, setState }) => {
   const handleOnChange = (e) => {
     const searchValue = e.target.value.toLowerCase();
     setGetState(searchValue);
-    let filteredResult = cities_main
+    const filteredResult = cities_main
       .filter((city) => {
-        return city.city_name.toLowerCase().includes(searchValue);
+        return (
+          searchValue && city.city_name.toLowerCase().includes(searchValue)
+        );
       })
       .slice(0, 5);
-    searchValue === "" ? (filteredResult = []) : null;
+    console.log(filteredResult);
+    // searchValue === "" ? (filteredResult = []) : null;
     setFilteredCities(filteredResult);
   };
 
