@@ -70,7 +70,7 @@ const ShowWeather = ({
 };
 
 ShowWeather.propTypes = {
-  state: PropTypes.string.isRequired,
+  cityName: PropTypes.string.isRequired,
   weatherData: PropTypes.object.isRequired,
   setWeatherData: PropTypes.func.isRequired,
 };

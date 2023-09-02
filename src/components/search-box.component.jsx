@@ -1,13 +1,13 @@
 import { useState } from "react";
 import cities_main from "/cities_main.json";
 
-const SearchBox = ({ setState }) => {
-  const [getState, setGetState] = useState("");
+const SearchBox = ({ setCityName }) => {
+  const [getCityName, setGetCityName] = useState("");
   const [filteredCities, setFilteredCities] = useState([]);
 
   const handleOnChange = (e) => {
     const searchValue = e.target.value.toLowerCase();
-    setGetState(searchValue);
+    setGetCityName(searchValue);
     const filteredResult = cities_main
       .filter((city) => {
         return (
@@ -19,30 +19,28 @@ const SearchBox = ({ setState }) => {
   };
 
   const handleOnClick = () => {
-    if (getState.length > 2) {
-      setState(getState);
-      setGetState("");
-    }
+    setCityName(getCityName);
+    setGetCityName("");
   };
 
   const handleOnKeyDown = (e) => {
-    if (e.code === "Enter" && getState.length > 2) {
-      setState(getState);
-      setGetState("");
+    if (e.code === "Enter" && getCityName.length > 2) {
+      setCityName(getCityName);
+      setGetCityName("");
     }
   };
 
   const handleSuggestionOnClick = (city) => {
-    setState(city.city_name);
+    setCityName(city.city_name);
     setFilteredCities([]);
-    setGetState("");
+    setGetCityName("");
   };
 
   return (
     <div>
       <input
         type="search"
-        value={getState}
+        value={getCityName}
         onChange={handleOnChange}
         onKeyDown={handleOnKeyDown}
       ></input>
