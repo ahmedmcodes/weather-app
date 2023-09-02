@@ -19,7 +19,6 @@ function App() {
   return (
     <div>
       <SearchBox setState={setState} />
-      {/*
       <ShowWeather
         state={state}
         setState={setState}
@@ -39,7 +38,7 @@ function App() {
         setLon={setLon}
         lon={lon}
         weatherData={weatherData}
-  /> */}
+      />
       <ShowCity />
     </div>
   );

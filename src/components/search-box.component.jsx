@@ -1,18 +1,20 @@
 import { useState } from "react";
-import cities from "/cities.json";
+import cities_main from "/cities_main.json";
 
 const SearchBox = ({ state, setState }) => {
   const [getState, setGetState] = useState("");
   const [filteredCities, setFilteredCities] = useState([]);
 
   const handleOnChange = (e) => {
-    setGetState(e.target.value);
-    const filteredresult = cities
+    const searchValue = e.target.value.toLowerCase();
+    setGetState(searchValue);
+    let filteredResult = cities_main
       .filter((city) => {
-        return city.city_name.includes(e.target.value);
+        return city.city_name.toLowerCase().includes(searchValue);
       })
       .slice(0, 5);
-    setFilteredCities(filteredresult);
+    searchValue === "" ? (filteredResult = []) : null;
+    setFilteredCities(filteredResult);
   };
 
   const handleOnClick = () => {
@@ -29,25 +31,24 @@ const SearchBox = ({ state, setState }) => {
 
   const handleSuggestionOnClick = (city) => {
     console.log(city);
+    setState(city.city_name);
     setFilteredCities([]);
+    setGetState("");
   };
 
   return (
     <div>
       <input
-        type="text"
+        type="search"
         value={getState}
         onChange={handleOnChange}
         onKeyDown={handleOnKeyDown}
       ></input>
       <button onClick={handleOnClick}>Search</button>
       <div>
-        {filteredCities.map((city) => {
+        {filteredCities.map((city, index) => {
           return (
-            <p
-              key={city.city_name}
-              onClick={() => handleSuggestionOnClick(city)}
-            >
+            <p key={index} onClick={() => handleSuggestionOnClick(city)}>
               {city.city_name}
             </p>
           );
