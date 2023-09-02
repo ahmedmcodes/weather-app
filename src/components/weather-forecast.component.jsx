@@ -1,23 +1,16 @@
 import { useEffect, useState } from "react";
+import kelvinToCelsius, { getDayFromTimestamp } from "../functions";
 
-const WeatherForecast = ({
-  state,
-  kelvinToCelsius,
-  lat,
-  setLat,
-  lon,
-  setLon,
-  weatherData,
-}) => {
+const WeatherForecast = ({ cityName, weatherData, lonLat }) => {
   const [forecast, setForecast] = useState([]);
   const apiKey = import.meta.env.VITE_API_KEY;
   let apiUrl;
-  if (state === "") {
-    apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+  if (cityName) {
+    apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}`;
   } else {
-    apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${state}&appid=${apiKey}`;
+    apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lonLat.lat}&lon=${lonLat.lon}&appid=${apiKey}`;
   }
-  console.log(apiUrl);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,29 +24,10 @@ const WeatherForecast = ({
 
     fetchData();
   }, []);
-  console.log(forecast);
 
   const filteredForecast = forecast.filter((item) => {
     return item.dt_txt.includes("15:00:00");
   });
-
-  console.log(filteredForecast);
-  const days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-
-  function getDayFromTimestamp(timestamp) {
-    const date = new Date(timestamp * 1000);
-    const offset = date.getTimezoneOffset() * 60 * 1000;
-    const localTime = new Date(timestamp * 1000 + offset);
-    return days[localTime.getDay()];
-  }
 
   if (forecast === undefined) {
     return <h1>forecast is not defned</h1>;

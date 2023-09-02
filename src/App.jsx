@@ -3,39 +3,26 @@ import "./App.css";
 import ShowWeather from "./components/weather-shower.component";
 import SearchBox from "./components/search-box.component";
 import WeatherForecast from "./components/weather-forecast.component";
-import LocationFetcher from "./components/lon-lat.component";
 
 function App() {
-  const [state, setState] = useState("");
+  const [cityName, setCityName] = useState("");
   const [weatherData, setWeatherData] = useState({});
-  const [lon, setLon] = useState(2.3522);
-  const [lat, setLat] = useState(48.8566);
-
-  const kelvinToCelsius = (kelvin) => {
-    return (kelvin - 273.1).toFixed(1);
-  };
+  const [lonLat, setLonLat] = useState({ lon: 2.3522, lat: 48.8566 });
 
   return (
     <div>
-      <SearchBox setState={setState} />
+      <SearchBox setCityName={setCityName} />
       <ShowWeather
-        state={state}
-        setState={setState}
+        cityName={cityName}
+        setCityName={setCityName}
         weatherData={weatherData}
         setWeatherData={setWeatherData}
-        kelvinToCelsius={kelvinToCelsius}
-        lat={lat}
-        setLat={setLat}
-        setLon={setLon}
-        lon={lon}
+        lonLat={lonLat}
+        setLonLat={setLonLat}
       />
       <WeatherForecast
-        state={state}
-        kelvinToCelsius={kelvinToCelsius}
-        lat={lat}
-        setLat={setLat}
-        setLon={setLon}
-        lon={lon}
+        cityName={cityName}
+        lonLat={lonLat}
         weatherData={weatherData}
       />
     </div>

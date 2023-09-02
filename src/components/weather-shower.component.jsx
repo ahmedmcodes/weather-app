@@ -1,48 +1,51 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import PropTypes from "prop-types";
 import moment from "moment/moment";
+import kelvinToCelsius from "../functions";
 
 const ShowWeather = ({
-  state,
+  cityName,
   weatherData,
   setWeatherData,
-  setState,
-  kelvinToCelsius,
-  lat,
-  setLat,
-  lon,
-  setLon,
+  lonLat,
+  setLonLat,
 }) => {
   const apiKey = import.meta.env.VITE_API_KEY;
   let apiUrl;
-  if (state === "") {
-    apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+  if (cityName) {
+    apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`;
   } else {
-    apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${state}&appid=${apiKey}`;
+    apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lonLat.lat}&lon=${lonLat.lon}&appid=${apiKey}`;
   }
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        setLon(position.coords.longitude);
-        setLat(position.coords.latitude);
+        setLonLat({
+          lon: position.coords.longitude,
+          lat: position.coords.latitude,
+        });
       },
       (error) => {
-        console.log(error);
+        console.log(error.message);
       }
     );
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        setWeatherData(data);
-        // setLoading(false);
-      });
+
+    const fetchData = async () => {
+      try {
+        const data = await fetch(apiUrl);
+        const response = await data.json();
+        setWeatherData(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
   }, [apiUrl]);
 
-  console.log(weatherData);
-
   if (weatherData.cod === "404") {
-    return <h1>city not found</h1>;
+    return <h1>City Not Found</h1>;
   } else if (weatherData.main === undefined) {
     return <h1>Loading...</h1>;
   }

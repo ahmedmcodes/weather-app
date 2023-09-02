@@ -1,7 +1,7 @@
 import { useState } from "react";
 import cities_main from "/cities_main.json";
 
-const SearchBox = ({ state, setState }) => {
+const SearchBox = ({ setState }) => {
   const [getState, setGetState] = useState("");
   const [filteredCities, setFilteredCities] = useState([]);
 
@@ -15,14 +15,14 @@ const SearchBox = ({ state, setState }) => {
         );
       })
       .slice(0, 5);
-    console.log(filteredResult);
-    // searchValue === "" ? (filteredResult = []) : null;
     setFilteredCities(filteredResult);
   };
 
   const handleOnClick = () => {
-    setState(getState);
-    setGetState("");
+    if (getState.length > 2) {
+      setState(getState);
+      setGetState("");
+    }
   };
 
   const handleOnKeyDown = (e) => {
@@ -33,7 +33,6 @@ const SearchBox = ({ state, setState }) => {
   };
 
   const handleSuggestionOnClick = (city) => {
-    console.log(city);
     setState(city.city_name);
     setFilteredCities([]);
     setGetState("");
