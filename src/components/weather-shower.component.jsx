@@ -28,7 +28,7 @@ const ShowWeather = ({
       },
       (error) => {
         console.log(error.message);
-      }
+      },
     );
 
     const fetchData = async () => {
