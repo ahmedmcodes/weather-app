@@ -15,7 +15,7 @@ const SearchBox = ({ setCityName }) => {
           searchValue && city.city_name.toLowerCase().includes(searchValue)
         );
       })
-      .slice(0, 5);
+      .slice(0, 10);
     setFilteredCities(filteredResult);
   };
 
@@ -40,25 +40,25 @@ const SearchBox = ({ setCityName }) => {
 
   return (
     <>
-      <div className="my-5 w-6/12 flex flex-row justify-items-center relative">
+      <div className="mt-5 w-6/12 flex flex-row justify-items-center relative">
         <input
           type="search"
           value={getCityName}
           onChange={handleOnChange}
           onKeyDown={handleOnKeyDown}
-          className="mx-2 rounded-full focus:outline-none h-8 text-center w-screen bg-orange-300 text-sm border border-white focus:border-black focus:bg-orange-200 shadow-orange-400"
+          className="mx-2 rounded-full focus:outline-none h-8 text-center w-screen bg-transparent text-sm border-2 border-white focus:border-black focus:backdrop-sepia-10 shadow-orange-400 hover:cursor-pointer focus:cursor-text"
         />
         <MdSearch
           onClick={handleOnClick}
-          className=" my-2 mr-5 text-md hover:cursor-pointer  shrink-0 absolute right-4"
+          className=" my-2 mr-5 text-lg hover:cursor-pointer absolute right-4 font-extrabold"
         />
       </div>
-      <div className="text-center">
-        {filteredCities.map((city, index) => {
+      <div className="text-center bg-white w-6/12 z-50">
+      {filteredCities.map((city, index) => {
           return (
-            <p key={index} onClick={() => handleSuggestionOnClick(city)}>
+            <li key={index} onClick={() => handleSuggestionOnClick(city)}>
               {city.city_name}
-            </p>
+            </li>
           );
         })}
       </div>

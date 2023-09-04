@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import PropTypes from "prop-types";
 import moment from "moment/moment";
 import kelvinToCelsius from "../functions";
+import {VscLoading} from "react-icons/vsc";
 
 const ShowWeather = ({
   cityName,
@@ -47,7 +48,12 @@ const ShowWeather = ({
   if (weatherData.cod === "404") {
     return <h1>City Not Found</h1>;
   } else if (weatherData.main === undefined) {
-    return <h1>Loading...</h1>;
+    return (
+      <div className='flex flex-row font-bold'>
+      <VscLoading className="animate-spin text-2xl font-extrabold mr-2"/>
+      Loading
+      </div>
+    )
   }
   return (
     <div>
