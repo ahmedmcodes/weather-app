@@ -22,9 +22,11 @@ const WeatherForecast = ({ cityName, weatherData, lonLat }) => {
       }
     };
 
-    setTimeout(() => {
-      fetchData();
-    }, 3000);
+    fetchData();
+
+    // setTimeout(() => {
+    //   fetchData();
+    // }, 3000);
   }, []);
 
   const filteredForecast = forecast.filter((item) => {
@@ -40,7 +42,7 @@ const WeatherForecast = ({ cityName, weatherData, lonLat }) => {
   }
 
   return (
-    <div>
+    <div className="bg-red-500 col-span-1">
       <h1>Weather Forecast for {weatherData.name} </h1>
       {forecast[0] && (
         <>

@@ -12,6 +12,9 @@ export default {
       animation: {
         wiggle: "wiggle 5s ease-in-out infinite",
       },
+      height: {
+        80: "80vh",
+      },
     },
   },
   plugins: [],

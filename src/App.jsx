@@ -21,11 +21,13 @@ function App() {
         />
       </div>
       <div
-        className={
-          focus
-            ? "blur-sm transition-all duration-1000 "
-            : "blur-none duration-1000 "
-        }
+        className="my-5 mx-5 grid grid-cols-4 gap-2"
+
+        // {
+        //   focus
+        //     ? "blur-sm transition-all duration-1000 "
+        //     : "blur-none duration-1000 "
+        // }
       >
         <ShowWeather
           cityName={cityName}

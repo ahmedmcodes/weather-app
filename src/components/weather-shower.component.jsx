@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import moment from "moment/moment";
 import kelvinToCelsius from "../functions";
 import { VscLoading } from "react-icons/vsc";
+import { WiDaySunny } from "react-icons/wi";
 
 const ShowWeather = ({
   cityName,
@@ -41,10 +42,11 @@ const ShowWeather = ({
         console.log(error);
       }
     };
+    fetchData();
 
-    setTimeout(() => {
-      fetchData();
-    }, 3000);
+    // setTimeout(() => {
+    //   fetchData();
+    // }, 3000);
   }, [apiUrl]);
 
   if (weatherData.cod === "404") {
@@ -58,20 +60,24 @@ const ShowWeather = ({
     );
   }
   return (
-    <div>
+    <div className="col-span-2 rounded-lg ">
       {weatherData && (
-        <div>
-          <h1>
-            {weatherData.name}, {weatherData.sys.country}
+        <>
+          <h1 className="text-center my-5 text-3xl">
+            {weatherData.name} {weatherData.sys.country} {moment().format("LL")}
           </h1>
-          <h2>
-            Temprature:
-            {kelvinToCelsius(weatherData.main.temp)}&deg;C
-          </h2>
-          <h2>Description: {weatherData.weather[0].main} </h2>
-          <h2>Date: {moment().format("LL")} </h2>
-          <h2>Humidity: {weatherData.main.humidity}% </h2>
-        </div>
+          <div className="grid grid-cols-2 my-5 mx-2">
+            <p className="text-6xl my-5">
+              {kelvinToCelsius(weatherData.main.temp)}&deg;C{" "}
+            </p>
+            <p className="text-5xl justify-self-end my-5">
+              {weatherData.weather[0].main}
+            </p>
+            <WiDaySunny className="text-white text-6xl justify-self-center col-span-2 " />
+
+            <p>Humidity: {weatherData.main.humidity}% </p>
+          </div>
+        </>
       )}
     </div>
   );
