@@ -22,7 +22,9 @@ const WeatherForecast = ({ cityName, weatherData, lonLat }) => {
       }
     };
 
-    fetchData();
+    setTimeout(() => {
+      fetchData();
+    }, 3000);
   }, []);
 
   const filteredForecast = forecast.filter((item) => {
