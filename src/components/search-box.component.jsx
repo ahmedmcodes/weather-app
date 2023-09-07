@@ -16,7 +16,7 @@ const SearchBox = ({ setCityName, setFocus }) => {
           searchValue && city.city_name.toLowerCase().includes(searchValue)
         );
       })
-      .slice(0, 10);
+      .slice(0, 15);
     setFilteredCities(filteredResult);
   };
 
@@ -50,7 +50,7 @@ const SearchBox = ({ setCityName, setFocus }) => {
           onKeyDown={handleOnKeyDown}
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
-          className=" mx-2 rounded-full focus:outline-none h-8 text-center w-screen bg-transparent text-sm border-2 border-white focus:border-black focus:backdrop-sepia-10 shadow-orange-400 hover:cursor-pointer focus:cursor-text"
+          className=" mx-2 rounded-full focus:outline-none h-8 text-center w-screen bg-transparent text-sm border-2 border-white hover:border-black focus:border-black focus:backdrop-sepia-10 shadow-orange-400 hover:cursor-pointer focus:cursor-text"
         />
         <MdSearch
           onClick={handleOnClick}
@@ -60,17 +60,17 @@ const SearchBox = ({ setCityName, setFocus }) => {
       <div
         className={
           filteredCities.length > 0
-            ? "flex place-content-center text-center bg-transparent w-9/12 z-50 overflow-auto h-24  my-3 absolute mt-14 text-sm"
+            ? "flex place-content-center text-center bg-transparent w-9/12 z-50 overflow-auto h-2/6  my-3 absolute mt-14 text-md "
             : null
         }
         id="filteredcities"
       >
-        <ul className="w-max place-content-center">
+        <ul className="w-2/6 place-content-center">
           {filteredCities.map((city, index) => {
             return (
               <li
                 key={index}
-                className="hover:cursor-pointer hover:border-b-2  leading-relaxed"
+                className="hover:cursor-pointer hover:border-b-2  hover:text-white hover:bg-black leading-relaxed rounded-full"
                 onClick={() => handleSuggestionOnClick(city)}
               >
                 {city.city_name}

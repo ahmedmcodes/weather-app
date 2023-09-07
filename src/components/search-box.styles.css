@@ -6,7 +6,7 @@
   
   /* Style the scrollbar thumb */
   #filteredcities::-webkit-scrollbar-thumb {
-    background: #4a90e2; /* Set the background color of the thumb */
+    background: white; /* Set the background color of the thumb */
     border-radius: 8px; /* Set the border radius of the thumb */
   }
   
@@ -14,6 +14,6 @@
   
   /* Style the scrollbar thumb on hover */
   #filteredcities::-webkit-scrollbar-thumb:hover {
-    background: #ffffff;; /* Change the thumb background color on hover */
+    background: black; /* Change the thumb background color on hover */
 }
   
