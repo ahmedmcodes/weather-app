@@ -42,10 +42,12 @@ const WeatherForecast = ({ cityName, weatherData, lonLat }) => {
   }
 
   return (
-    <div className="bg-red-500 col-span-1">
-      <h1>Weather Forecast for {weatherData.name} </h1>
+    <div className="col-span-2 rounded-3xl bg-transparent  border hover:border-black drop-shadow-sm">
+      <h1 className="text-center my-10 text-3xl mx-2 font-semibold">
+        Forecast for {weatherData.name}
+      </h1>
       {forecast[0] && (
-        <>
+        <div className="grid my-5 mx-6">
           {filteredForecast.map((item, index) => {
             return (
               <div key={index}>
@@ -55,7 +57,7 @@ const WeatherForecast = ({ cityName, weatherData, lonLat }) => {
               </div>
             );
           })}
-        </>
+        </div>
       )}
     </div>
   );

@@ -12,7 +12,7 @@ function App() {
   //States for CSS Styling
   const [focus, setFocus] = useState(false);
   return (
-    <div className="relative mt-14 bg-transparent border rounded border-white shadow-md shadow-orange-400  backdrop-blur">
+    <div className="relative mt-14 bg-transparent border rounded-2xl border-white shadow-md shadow-orange-400  backdrop-blur font-font">
       <div className="flex flex-col justify-items-center items-center">
         <SearchBox
           setCityName={setCityName}
@@ -21,7 +21,7 @@ function App() {
         />
       </div>
       <div
-        className="my-5 mx-5 grid grid-cols-4 gap-2"
+        className="my-5 mx-5 grid grid-cols-4 gap-14"
 
         // {
         //   focus

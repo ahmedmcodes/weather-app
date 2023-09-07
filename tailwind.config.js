@@ -15,6 +15,9 @@ export default {
       height: {
         80: "80vh",
       },
+      fontFamily: {
+        font: ["Nunito"],
+      },
     },
   },
   plugins: [],

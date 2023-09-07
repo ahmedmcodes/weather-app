@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import moment from "moment/moment";
 import kelvinToCelsius from "../functions";
 import { VscLoading } from "react-icons/vsc";
-import { WiDaySunny } from "react-icons/wi";
+import { WiDaySunny, WiDayHaze } from "react-icons/wi";
 
 const ShowWeather = ({
   cityName,
@@ -60,22 +60,33 @@ const ShowWeather = ({
     );
   }
   return (
-    <div className="col-span-2 rounded-lg ">
+    <div className="col-span-2 rounded-3xl bg-transparent  border hover:border-black drop-shadow-sm ">
       {weatherData && (
         <>
-          <h1 className="text-center my-5 text-3xl">
-            {weatherData.name} {weatherData.sys.country} {moment().format("LL")}
+          <h1 className="text-center my-10 text-3xl mx-2">
+            {weatherData.name} {weatherData.sys.country}
           </h1>
-          <div className="grid grid-cols-2 my-5 mx-2">
+          <div className="grid grid-cols-2 my-5 mx-6">
             <p className="text-6xl my-5">
               {kelvinToCelsius(weatherData.main.temp)}&deg;C{" "}
             </p>
-            <p className="text-5xl justify-self-end my-5">
+            <p className="text-5xl justify-self-end my-6">
               {weatherData.weather[0].main}
             </p>
-            <WiDaySunny className="text-white text-6xl justify-self-center col-span-2 " />
-
-            <p>Humidity: {weatherData.main.humidity}% </p>
+            <p className="col-span-2 text-9xl justify-self-center  my-10">
+              {weatherData.weather[0].main === "Clear" ? (
+                <WiDaySunny />
+              ) : (
+                <WiDayHaze />
+              )}
+            </p>
+            <p className="text-2xl text-center justify-self-center">
+              {weatherData.main.humidity}% <br />
+              Humidity
+            </p>
+            <p className="text-2xl text-center justify-self-center">
+              {kelvinToCelsius(weatherData.main.feels_like)}% <br /> Feels Like
+            </p>
           </div>
         </>
       )}
